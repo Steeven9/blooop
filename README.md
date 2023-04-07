@@ -1,8 +1,8 @@
-# <img src="logo.png" width="100"> ScheduleYoinker
+# <img src="logo.png" width="100"> blooop
 
-[![License](https://img.shields.io/github/license/Steeven9/ScheduleYoinker)](/LICENSE)
-[![C/C++ CI](https://github.com/Steeven9/ScheduleYoinker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Steeven9/ScheduleYoinker/actions/workflows/docker-image.yml)
-![Lines](https://img.shields.io/tokei/lines/github/Steeven9/ScheduleYoinker)
+[![License](https://img.shields.io/github/license/Steeven9/blooop)](/LICENSE)
+[![C/C++ CI](https://github.com/Steeven9/blooop/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Steeven9/blooop/actions/workflows/docker-image.yml)
+![Lines](https://img.shields.io/tokei/lines/github/Steeven9/blooop)
 
 RSS feed aggregator for vtubers schedule tweets to
 feed our [Hololive](https://holocal.moe) and [Nijisanji](https://nijien.vercel.app) calendars.
@@ -21,8 +21,8 @@ Clone the repo and install the requirements:
 
 Build or pull the image and run it:
 
-    docker build . -t scheduleyoinker
-    docker run --name scheduleyoinker -p 5000:5000 scheduleyoinker
+    docker build . -t blooop
+    docker run --name blooop -p 5000:5000 blooop
 
 ## Credits
 
