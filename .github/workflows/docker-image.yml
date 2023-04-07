@@ -18,4 +18,4 @@ jobs:
         with:
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/scheduleyoinker
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/blooop
