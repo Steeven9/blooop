@@ -1,4 +1,5 @@
 fastapi==0.95.0
 feedparser==6.0.10
 pymongo==4.3.3
+python-dateutil==2.8.2
 uvicorn==0.21.1

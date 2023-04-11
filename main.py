@@ -6,6 +6,7 @@ import feedparser as fp
 import uvicorn
 from dateutil import parser as dp
 from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse
 from pymongo import MongoClient
 
 from data_kfp import talents as talents_kfp
@@ -49,13 +50,15 @@ def pull_tweets_from_nitter(talents):
                         update={'$setOnInsert': item},
                         upsert=True)
                     tweet_list.append(item)
+    # TODO count them correctly
     log(f"Added {len(tweet_list)} tweets to DB")
     return tweet_list
 
 
+#TODO add a front page with links and stuff
 @app.get("/", include_in_schema=False)
 def root():
-    return "Hello! Check out /docs to see the available endpoints"
+    return FileResponse('index.html')
 
 
 @app.get("/health", include_in_schema=False)
@@ -79,6 +82,9 @@ def tweets_talent(request: Request, talent: str):
     return list(request.app.database["tweets"].find({talent: talent}))
 
 
+#TODO add endpoint for KFP/NEST
+
+
 @app.on_event("startup")
 def startup_db_client():
     app.mongodb_client = MongoClient(CONNECTION_STRING)
@@ -91,6 +97,7 @@ def shutdown_db_client():
     app.mongodb_client.close()
 
 
+#TODO add time in logging
 if __name__ == "__main__":
     uvicorn.run("main:app",
                 reload=True,
