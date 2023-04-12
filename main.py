@@ -55,7 +55,6 @@ def pull_tweets_from_nitter(talents):
     return tweet_list
 
 
-#TODO add a front page with links and stuff
 @app.get("/", include_in_schema=False)
 def root():
     return FileResponse('index.html')
@@ -79,10 +78,23 @@ def tweets(request: Request):
 
 @app.get("/tweets/{talent}", summary="Get tweets for a given talent")
 def tweets_talent(request: Request, talent: str):
-    return list(request.app.database["tweets"].find({talent: talent}))
+    return list(request.app.database["tweets"].find({"talent": talent}))
 
 
-#TODO add endpoint for KFP/NEST
+@app.get("/tweets_kfp", summary="Get tweets for KFP server")
+def tweets_kfp(request: Request):
+    return list(request.app.database["tweets"].find(
+        {"talent": {
+            "$in": talents_kfp
+        }}))
+
+
+@app.get("/tweets_nest", summary="Get tweets for NEST server")
+def tweets_nest(request: Request):
+    return list(request.app.database["tweets"].find(
+        {"talent": {
+            "$in": talents_nest
+        }}))
 
 
 @app.on_event("startup")
@@ -99,8 +111,4 @@ def shutdown_db_client():
 
 #TODO add time in logging
 if __name__ == "__main__":
-    uvicorn.run("main:app",
-                reload=True,
-                port=5000,
-                log_level="info",
-                host="0.0.0.0")
+    uvicorn.run("main:app", reload=True, port=5000, host="0.0.0.0")
