@@ -6,14 +6,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <style>
-        a {
-            display: inline-block;
-            color: blue;
-        }
+        
+            :root {
+      --text-color: #fff;
+      --background-color: #222;
+      --link-color: #0077cc;
+    }
 
-        body {
-            font-family: Verdana, sans-serif;
-        }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --text-color: #222;
+        --background-color: #fff;
+        --link-color: #0077cc;
+      }
+    }
+
+    body {
+      color: var(--text-color);
+      background-color: var(--background-color);
+      font-family: Verdana, sans-serif;
+    }
+
+    a {
+      display: inline-block;
+      color: var(--link-color);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-color);
+    }
+
+    p {
+      color: var(--text-color);
+      line-height: 1.5em;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
     </style>
 </head>
 
