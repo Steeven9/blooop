@@ -1,4 +1,4 @@
-# <img src="logo.png" width="100"> blooop
+# <img src="img/logo.png" width="100"> blooop
 
 [![License](https://img.shields.io/github/license/Steeven9/blooop)](/LICENSE)
 [![C/C++ CI](https://github.com/Steeven9/blooop/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Steeven9/blooop/actions/workflows/docker-image.yml)
@@ -26,7 +26,7 @@ Build or pull the image and run it:
 
 ## Credits
 
-Profile picture by the one and only [DuDuL](https://twitter.com/DuDuLtv)!
+Logo by the one and only [Shiro](https://twitter.com/OgumaShiro)!
 
 This project uses [Nitter](https://nitter.net), an alternative to Twitter - be sure to check it out!
 

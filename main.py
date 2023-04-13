@@ -6,12 +6,15 @@ import feedparser as fp
 from dateutil import parser as dp
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pymongo import MongoClient
 
 from data_kfp import talents as talents_kfp
 from data_nest import talents as talents_nest
 
 app = FastAPI(title="blooop")
+app.mount("/img", StaticFiles(directory="img"), name="img")
+
 CLEANER = re.compile('<.*?>')
 KEYWORDS = ["schedule", "weekly", "guerrilla", "guerilla", "gorilla"]
 CONNECTION_STRING = getenv("MONGODB_URI")
