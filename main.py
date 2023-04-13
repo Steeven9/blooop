@@ -3,7 +3,6 @@ from datetime import datetime
 from os import getenv
 
 import feedparser as fp
-import uvicorn
 from dateutil import parser as dp
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
@@ -107,8 +106,3 @@ def startup_db_client():
 @app.on_event("shutdown")
 def shutdown_db_client():
     app.mongodb_client.close()
-
-
-#TODO add time in logging
-if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True, port=5000, host="0.0.0.0")

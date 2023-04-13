@@ -15,7 +15,7 @@ Clone the repo and install the requirements:
 
 ## Usage
 
-    python main.py
+    gunicorn main:app
 
 ## Run in Docker
 
