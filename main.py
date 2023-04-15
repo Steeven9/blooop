@@ -18,7 +18,8 @@ KEYWORDS = ["schedule", "weekly", "guerrilla", "guerilla", "gorilla"]
 CONNECTION_STRING = getenv("MONGODB_URI")
 API_URL = "https://nitter.net"
 CLEANER = re.compile('<.*?>')
-TALENTS_LIST = talents_kfp + talents_nest
+TALENTS_LIST = list(filter(lambda x: (x["active"]),
+                           talents_kfp + talents_nest))
 TALENTS_LIST.sort(key=itemgetter("agency", "branch", "generationId", "name"))
 
 app = FastAPI(title="blooop")
