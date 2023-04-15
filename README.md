@@ -28,7 +28,7 @@ Build or pull the image and run it:
 
 Logo by the one and only [Shiro](https://twitter.com/OgumaShiro)!
 
-This project uses [Nitter](https://nitter.net), an alternative to Twitter - be sure to check it out!
+This project uses [Nitter](https://github.com/zedeus/nitter), an alternative to Twitter - be sure to check it out!
 
 Huge thanks to the team at `KFP | The Office` for helping with debugging
 and feature suggestions.

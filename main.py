@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+from operator import itemgetter
 from os import getenv
 
 import feedparser as fp
@@ -12,12 +13,16 @@ from pymongo import MongoClient
 from data_kfp import talents as talents_kfp
 from data_nest import talents as talents_nest
 
-app = FastAPI(title="blooop")
-app.mount("/img", StaticFiles(directory="img"), name="img")
-
-CLEANER = re.compile('<.*?>')
+# Config
 KEYWORDS = ["schedule", "weekly", "guerrilla", "guerilla", "gorilla"]
 CONNECTION_STRING = getenv("MONGODB_URI")
+API_URL = "https://nitter.net"
+CLEANER = re.compile('<.*?>')
+TALENTS_LIST = talents_kfp + talents_nest
+TALENTS_LIST.sort(key=itemgetter("agency", "branch", "generationId", "name"))
+
+app = FastAPI(title="blooop")
+app.mount("/img", StaticFiles(directory="img"), name="img")
 
 
 def clean_html(raw_html: str):
@@ -25,52 +30,43 @@ def clean_html(raw_html: str):
 
 
 def log(msg: str, level="INFO") -> None:
-    print(f"{str(datetime.now())[:-7]} [{level}] {msg}")
+    print(f"[{str(datetime.now())[:-7]}] [{level}] {msg}")
 
 
-def pull_tweets_from_nitter(talents):
+def pull_tweets_from_nitter():
     tweet_list = []
-    for talent in talents:
-        feed = fp.parse(f"https://nitter.net/{talent}/rss")
+    num_added = 0
+    for talent in TALENTS_LIST:
+        feed = fp.parse(f"{API_URL}/{talent['account']}/rss")
         for tweet in feed.entries:
             url = tweet.id.split("/")
             for keyword in KEYWORDS:
-                if url[3] == talent and keyword in tweet.summary.lower():
+                if url[3] == talent[
+                        "account"] and keyword in tweet.summary.lower():
                     tweet_id = url[5][:-2]
-                    tweet_url = f"https://twitter.com/{url[3]}/{url[4]}/{tweet_id}"
+                    tweet_url = f"https://twitter.com/{talent['account']}/status/{tweet_id}"
                     item = {
                         "_id": tweet_id,
                         "url": tweet_url,
                         "content": clean_html(tweet.summary),
-                        "talent": talent,
+                        "talent": talent["account"],
                         "version": 1.0,
                         "keyword": keyword,
                         "timestamp": dp.parse(tweet.published)
                     }
-                    app.database["tweets"].update_one(
+                    res = app.database["tweets"].update_one(
                         filter={"_id": tweet_id},
                         update={'$setOnInsert': item},
                         upsert=True)
+                    num_added = num_added + res.modified_count
                     tweet_list.append(item)
-    # TODO count them correctly
-    log(f"Added {len(tweet_list)} tweets to DB")
+    log(f"Added {num_added} tweets to DB (fetched {len(tweet_list)})")
     return tweet_list
 
 
-@app.get("/", include_in_schema=False)
-def root():
-    return FileResponse('index.html')
-
-
-@app.get("/health", include_in_schema=False)
-def health():
-    return "Ok"
-
-
-@app.get("/populate", include_in_schema=False)
-def populate():
-    tweets = pull_tweets_from_nitter(talents_kfp + talents_nest)
-    return tweets
+@app.get("/talents", summary="List all watched talents")
+def talents():
+    return TALENTS_LIST
 
 
 @app.get("/tweets", summary="Get all tweets")
@@ -81,6 +77,9 @@ def tweets(request: Request):
 @app.get("/tweets/{talent}", summary="Get tweets for a given talent")
 def tweets_talent(request: Request, talent: str):
     return list(request.app.database["tweets"].find({"talent": talent}))
+
+
+#TODO tweets endpoint but with a list param
 
 
 @app.get("/tweets_kfp", summary="Get tweets for KFP server")
@@ -97,6 +96,25 @@ def tweets_nest(request: Request):
         {"talent": {
             "$in": talents_nest
         }}))
+
+
+# UNDOCUMENTED ENDPOINTS - ONLY FOR INTERNAL USE
+
+
+@app.get("/", include_in_schema=False)
+def root():
+    return FileResponse('index.html')
+
+
+@app.get("/health", include_in_schema=False)
+def health():
+    return "Ok"
+
+
+@app.get("/populate", include_in_schema=False)
+def populate():
+    tweets = pull_tweets_from_nitter()
+    return tweets
 
 
 @app.on_event("startup")
