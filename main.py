@@ -8,25 +8,48 @@ from dateutil import parser as dp
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 from pymongo import MongoClient
 
 from data_kfp import talents as talents_kfp
 from data_nest import talents as talents_nest
+
+
+class Talent(BaseModel):
+    account: str
+    name: str
+    agency: str
+    branch: str
+    generation: str
+    generationId: int
+    active: bool
+    colors: dict
+
+
+class Tweet(BaseModel):
+    _id: str
+    content: str
+    keyword: str
+    talent: str
+    timestamp: datetime
+    url: str
+    version: int
+
 
 # Config
 KEYWORDS = ["schedule", "weekly", "guerrilla", "guerilla", "gorilla"]
 CONNECTION_STRING = getenv("MONGODB_URI")
 API_URL = "https://nitter.net"
 CLEANER = re.compile('<.*?>')
-TALENTS_LIST = list(filter(lambda x: (x["active"]),
-                           talents_kfp + talents_nest))
+TALENTS_LIST: list[Talent] = list(
+    filter(lambda x: (x["active"]), talents_kfp + talents_nest))
 TALENTS_LIST.sort(key=itemgetter("agency", "branch", "generationId", "name"))
 
 app = FastAPI(title="blooop")
 app.mount("/img", StaticFiles(directory="img"), name="img")
 
 
-def clean_html(raw_html: str):
+def clean_html(raw_html: str) -> str:
     return re.sub(CLEANER, '', raw_html)
 
 
@@ -34,7 +57,7 @@ def log(msg: str, level="INFO") -> None:
     print(f"[{str(datetime.now())[:-7]}] [{level}] {msg}")
 
 
-def pull_tweets_from_nitter():
+def pull_tweets_from_nitter() -> list[Tweet]:
     tweet_list = []
     num_added = 0
     for talent in TALENTS_LIST:
@@ -66,17 +89,17 @@ def pull_tweets_from_nitter():
 
 
 @app.get("/talents", summary="List all watched talents")
-def talents():
+def talents() -> list[Talent]:
     return TALENTS_LIST
 
 
 @app.get("/tweets", summary="Get all tweets")
-def tweets(request: Request):
+def tweets(request: Request) -> list[Tweet]:
     return list(request.app.database["tweets"].find({}))
 
 
 @app.get("/tweets/{talent}", summary="Get tweets for a given talent")
-def tweets_talent(request: Request, talent: str):
+def tweets_talent(request: Request, talent: str) -> list[Tweet]:
     return list(request.app.database["tweets"].find({"talent": talent}))
 
 
@@ -84,7 +107,7 @@ def tweets_talent(request: Request, talent: str):
 
 
 @app.get("/tweets_kfp", summary="Get tweets for KFP server")
-def tweets_kfp(request: Request):
+def tweets_kfp(request: Request) -> list[Tweet]:
     return list(request.app.database["tweets"].find(
         {"talent": {
             "$in": talents_kfp
@@ -92,7 +115,7 @@ def tweets_kfp(request: Request):
 
 
 @app.get("/tweets_nest", summary="Get tweets for NEST server")
-def tweets_nest(request: Request):
+def tweets_nest(request: Request) -> list[Tweet]:
     return list(request.app.database["tweets"].find(
         {"talent": {
             "$in": talents_nest
@@ -113,7 +136,7 @@ def health():
 
 
 @app.get("/populate", include_in_schema=False)
-def populate():
+def populate() -> list[Tweet]:
     tweets = pull_tweets_from_nitter()
     return tweets
 
