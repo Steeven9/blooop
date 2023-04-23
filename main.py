@@ -39,7 +39,7 @@ class Tweet(BaseModel):
 # Config
 KEYWORDS = ["schedule", "weekly", "guerrilla", "guerilla", "gorilla"]
 CONNECTION_STRING = getenv("MONGODB_URI")
-API_URL = "https://nitter.net"
+API_URL = getenv("TWITTER_API_URL")
 CLEANER = re.compile('<.*?>')
 TALENTS_LIST: list[Talent] = list(
     filter(lambda x: (x["active"]), talents_kfp + talents_nest))
