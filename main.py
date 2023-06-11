@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 from operator import itemgetter
 from os import getenv
+from csv import reader
 
 import feedparser as fp
 from dateutil import parser as dp
@@ -103,22 +104,29 @@ def tweets_talent(request: Request, talent: str) -> list[Tweet]:
     return list(request.app.database["tweets"].find({"talent": talent}))
 
 
-#TODO tweets endpoint but with a list param
-
-
-@app.get("/tweets_kfp", summary="Get tweets for KFP server")
-def tweets_kfp(request: Request) -> list[Tweet]:
+@app.get("/tweetsByList/{talents}",
+         summary="Get tweets for a comma-separated list of talents")
+def tweets_by_list(request: Request, talents: str) -> list[Tweet]:
+    talents_list = list(reader([talents]))
     return list(request.app.database["tweets"].find(
         {"talent": {
-            "$in": talents_kfp
+            "$in": talents_list[0]
         }}))
 
 
-@app.get("/tweets_nest", summary="Get tweets for NEST server")
+@app.get("/tweetsKfp", summary="Get tweets for KFP server")
+def tweets_kfp(request: Request) -> list[Tweet]:
+    return list(request.app.database["tweets"].find(
+        {"talent": {
+            "$in": [talent["account"] for talent in talents_kfp]
+        }}))
+
+
+@app.get("/tweetsNest", summary="Get tweets for NEST server")
 def tweets_nest(request: Request) -> list[Tweet]:
     return list(request.app.database["tweets"].find(
         {"talent": {
-            "$in": talents_nest
+            "$in": [talent["account"] for talent in talents_nest]
         }}))
 
 
