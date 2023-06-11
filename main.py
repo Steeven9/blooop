@@ -133,7 +133,7 @@ def tweets_server(request: Request,
 
     db_filter = {"talent": {"$in": [talent["account"] for talent in talents]}}
     if newestId is not None:
-        db_filter["id"] = {"$gt": newestId}
+        db_filter["$expr"] = {"$gt": [{"$toLong": "$id"}, int(newestId)]}
     return list(
         request.app.database["tweets"].find(db_filter).sort(SORTING_PARAM))
 
