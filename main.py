@@ -1,8 +1,8 @@
 import re
+from csv import reader
 from datetime import datetime
 from operator import itemgetter
 from os import getenv
-from csv import reader
 
 import feedparser as fp
 from dateutil import parser as dp
@@ -10,7 +10,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from pymongo import MongoClient
+from pymongo import ASCENDING, DESCENDING, MongoClient
 
 from data_kfp import talents as talents_kfp
 from data_nest import talents as talents_nest
@@ -28,7 +28,7 @@ class Talent(BaseModel):
 
 
 class Tweet(BaseModel):
-    _id: str
+    id: str
     content: str
     keyword: str
     talent: str
@@ -45,6 +45,7 @@ CLEANER = re.compile('<.*?>')
 TALENTS_LIST: list[Talent] = list(
     filter(lambda x: (x["active"]), talents_kfp + talents_nest))
 TALENTS_LIST.sort(key=itemgetter("agency", "branch", "generationId", "name"))
+SORTING_PARAM = [("id", ASCENDING)]
 
 app = FastAPI(title="blooop")
 app.mount("/img", StaticFiles(directory="img"), name="img")
@@ -72,10 +73,11 @@ def pull_tweets_from_nitter() -> list[Tweet]:
                     tweet_url = f"https://twitter.com/{talent['account']}/status/{tweet_id}"
                     item = {
                         "_id": tweet_id,
+                        "id": int(tweet_id),
                         "url": tweet_url,
                         "content": clean_html(tweet.summary),
                         "talent": talent["account"],
-                        "version": 1.0,
+                        "version": 2,
                         "keyword": keyword,
                         "timestamp": dp.parse(tweet.published)
                     }
@@ -96,38 +98,44 @@ def talents() -> list[Talent]:
 
 @app.get("/tweets", summary="Get all tweets")
 def tweets(request: Request) -> list[Tweet]:
-    return list(request.app.database["tweets"].find({}))
+    return list(request.app.database["tweets"].find({}).sort(SORTING_PARAM))
 
 
 @app.get("/tweets/{talent}", summary="Get tweets for a given talent")
 def tweets_talent(request: Request, talent: str) -> list[Tweet]:
-    return list(request.app.database["tweets"].find({"talent": talent}))
+    return list(request.app.database["tweets"].find({
+        "talent": talent
+    }).sort(SORTING_PARAM))
 
 
 @app.get("/tweetsByList/{talents}",
          summary="Get tweets for a comma-separated list of talents")
 def tweets_by_list(request: Request, talents: str) -> list[Tweet]:
     talents_list = list(reader([talents]))
-    return list(request.app.database["tweets"].find(
-        {"talent": {
+    return list(request.app.database["tweets"].find({
+        "talent": {
             "$in": talents_list[0]
-        }}))
+        }
+    }).sort(SORTING_PARAM))
 
 
-@app.get("/tweetsKfp", summary="Get tweets for KFP server")
-def tweets_kfp(request: Request) -> list[Tweet]:
-    return list(request.app.database["tweets"].find(
-        {"talent": {
-            "$in": [talent["account"] for talent in talents_kfp]
-        }}))
+@app.get("/tweetsByServer/{server}",
+         summary="Get tweets for a specific fan server")
+def tweets_server(request: Request,
+                  server: str,
+                  newestId: str = None) -> list[Tweet]:
+    if server == "KFP":
+        talents = talents_kfp
+    elif server == "NEST":
+        talents = talents_nest
+    else:
+        talents = []
 
-
-@app.get("/tweetsNest", summary="Get tweets for NEST server")
-def tweets_nest(request: Request) -> list[Tweet]:
-    return list(request.app.database["tweets"].find(
-        {"talent": {
-            "$in": [talent["account"] for talent in talents_nest]
-        }}))
+    db_filter = {"talent": {"$in": [talent["account"] for talent in talents]}}
+    if newestId is not None:
+        db_filter["id"] = {"$gt": newestId}
+    return list(
+        request.app.database["tweets"].find(db_filter).sort(SORTING_PARAM))
 
 
 # UNDOCUMENTED ENDPOINTS - ONLY FOR INTERNAL USE
