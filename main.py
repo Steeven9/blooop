@@ -10,7 +10,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from pymongo import ASCENDING, DESCENDING, MongoClient
+from pymongo import ASCENDING, MongoClient
 
 from data_kfp import talents as talents_kfp
 from data_nest import talents as talents_nest
@@ -124,9 +124,9 @@ def tweets_by_list(request: Request, talents: str) -> list[Tweet]:
 def tweets_server(request: Request,
                   server: str,
                   newestId: str = None) -> list[Tweet]:
-    if server == "KFP":
+    if server.upper() == "KFP":
         talents = talents_kfp
-    elif server == "NEST":
+    elif server.upper() == "NEST":
         talents = talents_nest
     else:
         talents = []
@@ -148,6 +148,7 @@ def root():
 
 @app.get("/health", include_in_schema=False)
 def health():
+    app.mongodb_client.server_info()
     return "Ok"
 
 
@@ -159,8 +160,10 @@ def populate() -> list[Tweet]:
 
 @app.on_event("startup")
 def startup_db_client():
-    app.mongodb_client = MongoClient(CONNECTION_STRING)
+    app.mongodb_client = MongoClient(CONNECTION_STRING,
+                                     serverSelectionTimeoutMS=5)
     app.database = app.mongodb_client["schedule"]
+    app.mongodb_client.server_info()
     log("Connected to the MongoDB database!")
 
 

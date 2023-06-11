@@ -7,6 +7,8 @@
 RSS feed aggregator for vtubers schedule tweets to
 feed our [Hololive](https://holocal.moe) and [Nijisanji](https://nijien.vercel.app) calendars.
 
+## Warning: API in development, can change often and without notice
+
 ## Setup
 
 Clone the repo and install the requirements:
@@ -19,7 +21,7 @@ Clone the repo and install the requirements:
 
 ## Run in Docker
 
-Build or pull the image and run it:
+Build or pull from [Dockerhub](https://hub.docker.com/repository/docker/steeven9/blooop) the image and run it:
 
     docker build . -t blooop
     docker run --name blooop -p 5000:5000 blooop
@@ -28,7 +30,8 @@ Build or pull the image and run it:
 
 Logo by the one and only [Shiro](https://twitter.com/OgumaShiro)!
 
-This project uses [Nitter](https://github.com/zedeus/nitter), an alternative to Twitter - be sure to check it out!
+This project relies on a self-hosted non-public instance of [Nitter](https://github.com/zedeus/nitter),
+an ad- and tracking-free alternative to Twitter - be sure to check it out!
 
-Huge thanks to the team at `KFP | The Office` for helping with debugging
-and feature suggestions.
+Huge thanks to the teams of `KFP | The Office` and `Nijisanji EN Schedule Team`
+for helping with debugging and feature suggestions.
