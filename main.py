@@ -12,8 +12,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from pymongo import ASCENDING, MongoClient
 
-from data_kfp import talents as talents_kfp
-from data_nest import talents as talents_nest
+from talents_holo import talents as talents_holo
+from talents_niji import talents as talents_niji
 
 
 class Talent(BaseModel):
@@ -38,12 +38,13 @@ class Tweet(BaseModel):
 
 
 # Config
-KEYWORDS = ["schedule", "weekly", "guerrilla", "guerilla", "gorilla"]
+KEYWORDS_SCHEDULE = ["schedule", "weekly"]
+KEYWORDS_GUERILLA = ["guerrilla", "guerilla", "gorilla"]
 CONNECTION_STRING = getenv("MONGODB_URI")
 API_URL = getenv("TWITTER_API_URL")
 CLEANER = re.compile('<.*?>')
 TALENTS_LIST: list[Talent] = list(
-    filter(lambda x: (x["active"]), talents_kfp + talents_nest))
+    filter(lambda x: (x["active"]), talents_holo + talents_niji))
 TALENTS_LIST.sort(key=itemgetter("agency", "branch", "generationId", "name"))
 SORTING_PARAM = [("id", ASCENDING)]
 
@@ -52,10 +53,12 @@ app.mount("/img", StaticFiles(directory="img"), name="img")
 
 
 def clean_html(raw_html: str) -> str:
+    '''Removes HTML code from a given string'''
     return re.sub(CLEANER, '', raw_html)
 
 
 def log(msg: str, level="INFO") -> None:
+    '''Prints a nicely formatted message to stdout'''
     print(f"[{str(datetime.now())[:-7]}] [{level}] {msg}")
 
 
@@ -66,14 +69,20 @@ def pull_tweets_from_nitter() -> list[Tweet]:
         feed = fp.parse(f"{API_URL}/{talent['account']}/rss")
         for tweet in feed.entries:
             url = tweet.id.split("/")
-            for keyword in KEYWORDS:
-                if url[3] == talent[
-                        "account"] and keyword in tweet.summary.lower():
+            for keyword in list(KEYWORDS_SCHEDULE + KEYWORDS_GUERILLA):
+                if keyword in tweet.summary.lower():
                     has_media = "<img src=" in tweet.summary
-                    # skip schedule tweets with no picture attached
-                    if (keyword == "schedule"
-                            or keyword == "weekly") and not has_media:
+                    # skip retweets
+                    if url[3] != talent["account"]:
                         continue
+                    # normalize keywords
+                    if keyword in KEYWORDS_SCHEDULE:
+                        keyword = "schedule"
+                        # skip schedule tweets with no picture attached
+                        if not has_media:
+                            continue
+                    elif keyword in KEYWORDS_GUERILLA:
+                        keyword = "guerilla"
                     tweet_id = url[5][:-2]
                     tweet_url = f"https://twitter.com/{talent['account']}/status/{tweet_id}"
                     item = {
@@ -132,9 +141,9 @@ def tweets_server(request: Request,
                   server: str,
                   newestId: str = None) -> list[Tweet]:
     if server.upper() == "KFP":
-        talents = talents_kfp
+        talents = talents_holo
     elif server.upper() == "NEST":
-        talents = talents_nest
+        talents = talents_niji
     else:
         talents = []
 
