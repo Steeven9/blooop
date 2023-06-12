@@ -69,15 +69,22 @@ def pull_tweets_from_nitter() -> list[Tweet]:
             for keyword in KEYWORDS:
                 if url[3] == talent[
                         "account"] and keyword in tweet.summary.lower():
+                    has_media = "<img src=" in tweet.summary
+                    # skip schedule tweets with no picture attached
+                    if (keyword == "schedule"
+                            or keyword == "weekly") and not has_media:
+                        continue
                     tweet_id = url[5][:-2]
                     tweet_url = f"https://twitter.com/{talent['account']}/status/{tweet_id}"
                     item = {
                         "_id": tweet_id,
-                        "id": int(tweet_id),
+                        "id": tweet_id,
                         "url": tweet_url,
                         "content": clean_html(tweet.summary),
+                        "raw_content": tweet.summary,
+                        "has_media": has_media,
                         "talent": talent["account"],
-                        "version": 2,
+                        "version": 3,
                         "keyword": keyword,
                         "timestamp": dp.parse(tweet.published)
                     }
