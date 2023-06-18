@@ -38,7 +38,7 @@ class Tweet(BaseModel):
 
 
 # Config
-KEYWORDS_SCHEDULE = ["schedule", "weekly"]
+KEYWORDS_SCHEDULE = ["schedule", "weekly", "#PetraOnAir"]
 KEYWORDS_GUERILLA = ["guerrilla", "guerilla", "gorilla"]
 CONNECTION_STRING = getenv("MONGODB_URI")
 API_URL = getenv("TWITTER_API_URL")
