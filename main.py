@@ -47,6 +47,8 @@ TALENTS_LIST: list[Talent] = list(
     filter(lambda x: (x["active"]), talents_holo + talents_niji))
 TALENTS_LIST.sort(key=itemgetter("agency", "branch", "generationId", "name"))
 SORTING_PARAM = [("id", ASCENDING)]
+EXCLUDE_RTS = True
+EXCLUDE_REPLIES = True
 
 app = FastAPI(title="blooop")
 app.mount("/img", StaticFiles(directory="img"), name="img")
@@ -66,14 +68,22 @@ def pull_tweets_from_nitter() -> list[Tweet]:
     tweet_list = []
     num_added = 0
     for talent in TALENTS_LIST:
-        feed = fp.parse(f"{API_URL}/{talent['account']}/rss")
+        query = f"{API_URL}/{talent['account']}/search/rss?f=tweets"
+        # exclude RTs and replies
+        if EXCLUDE_RTS:
+            query += "&e-nativeretweets=on"
+        if EXCLUDE_REPLIES:
+            query += "&e-replies=on"
+        feed = fp.parse(query)
         for tweet in feed.entries:
             url = tweet.id.split("/")
             for keyword in list(KEYWORDS_SCHEDULE + KEYWORDS_GUERILLA):
-                if keyword in tweet.summary.lower():
-                    has_media = "<img src=" in tweet.summary
-                    # skip retweets
-                    if url[3] != talent["account"]:
+                tweet_body = tweet.summary.lower()
+                keyword = keyword.lower()
+                if keyword in tweet_body:
+                    has_media = "<img src=" in tweet_body
+                    # skip retweets (just to be sure)
+                    if EXCLUDE_RTS and url[3] != talent["account"]:
                         continue
                     # normalize keywords
                     if keyword in KEYWORDS_SCHEDULE:
