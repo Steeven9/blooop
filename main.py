@@ -102,7 +102,7 @@ def pull_tweets_from_nitter() -> list[Tweet]:
                         "content": clean_html(tweet.summary),
                         "raw_content": tweet.summary,
                         "has_media": has_media,
-                        "talent": talent["account"],
+                        "talent": talent["account"].lower(),
                         "version": 3,
                         "keyword": keyword,
                         "timestamp": dp.parse(tweet.published)
