@@ -130,14 +130,14 @@ def tweets(request: Request) -> list[Tweet]:
 @app.get("/tweets/{talent}", summary="Get tweets for a given talent")
 def tweets_talent(request: Request, talent: str) -> list[Tweet]:
     return list(request.app.database["tweets"].find({
-        "talent": talent
+        "talent": talent.lower()
     }).sort(SORTING_PARAM))
 
 
 @app.get("/tweetsByList/{talents}",
          summary="Get tweets for a comma-separated list of talents")
 def tweets_by_list(request: Request, talents: str) -> list[Tweet]:
-    talents_list = list(reader([talents]))
+    talents_list = list(reader([talent.lower() for talent in talents]))
     return list(request.app.database["tweets"].find({
         "talent": {
             "$in": talents_list[0]
@@ -157,7 +157,11 @@ def tweets_server(request: Request,
     else:
         talents = []
 
-    db_filter = {"talent": {"$in": [talent["account"] for talent in talents]}}
+    db_filter = {
+        "talent": {
+            "$in": [talent["account"].lower() for talent in talents]
+        }
+    }
     if newestId is not None:
         db_filter["$expr"] = {"$gt": [{"$toLong": "$id"}, int(newestId)]}
     return list(
