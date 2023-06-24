@@ -12,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from pymongo import ASCENDING, MongoClient
 
+from keywords import KEYWORDS_GUERILLA, KEYWORDS_SCHEDULE
 from talents_holo import talents as talents_holo
 from talents_niji import talents as talents_niji
 
@@ -38,8 +39,6 @@ class Tweet(BaseModel):
 
 
 # Config
-KEYWORDS_SCHEDULE = ["schedule", "weekly", "#PetraOnAir"]
-KEYWORDS_GUERILLA = ["guerrilla", "guerilla", "gorilla"]
 CONNECTION_STRING = getenv("MONGODB_URI")
 API_URL = getenv("TWITTER_API_URL")
 CLEANER = re.compile('<.*?>')
@@ -93,6 +92,8 @@ def pull_tweets_from_nitter() -> list[Tweet]:
                             continue
                     elif keyword in KEYWORDS_GUERILLA:
                         keyword = "guerilla"
+                    else:
+                        keyword = "other"
                     tweet_id = url[5][:-2]
                     tweet_url = f"https://twitter.com/{talent['account']}/status/{tweet_id}"
                     item = {

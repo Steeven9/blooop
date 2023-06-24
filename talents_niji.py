@@ -386,3 +386,41 @@ talents += [{
         "dark": ""
     }
 }]
+# Krisis
+talents += [{
+    "account": "YuQWilson",
+    "name": "Yu Q. Wilson",
+    "agency": "Nijisanji",
+    "branch": "EN",
+    "generation": "Krisis",
+    "generationId": 8,
+    "active": True,
+    "colors": {
+        "light": "",
+        "dark": ""
+    }
+}, {
+    "account": "Tyrant_Vanta",
+    "name": "Vantacrow Bringer",
+    "agency": "Nijisanji",
+    "branch": "EN",
+    "generation": "Krisis",
+    "generationId": 8,
+    "active": True,
+    "colors": {
+        "light": "",
+        "dark": ""
+    }
+}, {
+    "account": "VezaliusBandage",
+    "name": "Vezalius Bandage",
+    "agency": "Nijisanji",
+    "branch": "EN",
+    "generation": "Krisis",
+    "generationId": 8,
+    "active": True,
+    "colors": {
+        "light": "",
+        "dark": ""
+    }
+}]
