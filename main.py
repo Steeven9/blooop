@@ -49,6 +49,11 @@ SORTING_PARAM = [("id", ASCENDING)]
 EXCLUDE_RTS = True
 EXCLUDE_REPLIES = True
 
+if CONNECTION_STRING == None:
+    raise ValueError("Missing connection string!")
+if API_URL == None:
+    raise ValueError("Missing API URL!")
+
 app = FastAPI(title="blooop")
 app.mount("/img", StaticFiles(directory="img"), name="img")
 
@@ -114,6 +119,7 @@ def pull_tweets_from_nitter() -> list[Tweet]:
                         upsert=True)
                     num_added = num_added + res.modified_count
                     tweet_list.append(item)
+                    break
     log(f"Added {num_added} tweets to DB (fetched {len(tweet_list)})")
     return tweet_list
 
