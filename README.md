@@ -30,8 +30,11 @@ Build or pull from [Dockerhub](https://hub.docker.com/repository/docker/steeven9
 
 Logo by the one and only [Shiro](https://twitter.com/OgumaShiro)!
 
-This project relies on a self-hosted non-public instance of [Nitter](https://github.com/zedeus/nitter),
-an ad- and tracking-free alternative to Twitter - be sure to check it out!
+~~This project relies on a self-hosted non-public instance of [Nitter](https://github.com/zedeus/nitter),
+an ad- and tracking-free alternative to Twitter - be sure to check it out!~~
+
+Since Twitter made it harder to fetch tweets, we now use [twitter-client](https://github.com/12joan/twitter-client),
+a small script to fetch tweet data.
 
 Huge thanks to the teams of `KFP | The Office` and `Nijisanji EN Schedule Team`
 for helping with debugging and feature suggestions.

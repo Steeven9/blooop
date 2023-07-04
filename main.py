@@ -33,7 +33,7 @@ class Tweet(BaseModel):
     content: str
     keyword: str
     talent: str
-    timestamp: datetime
+    published: datetime
     url: str
     version: int
 
@@ -68,6 +68,7 @@ def log(msg: str, level="INFO") -> None:
     print(f"[{str(datetime.now())[:-7]}] [{level}] {msg}")
 
 
+# https://github.com/zedeus/nitter
 def pull_tweets_from_nitter() -> list[Tweet]:
     tweet_list = []
     num_added = 0
@@ -101,6 +102,7 @@ def pull_tweets_from_nitter() -> list[Tweet]:
                         keyword = "other"
                     tweet_id = url[5][:-2]
                     tweet_url = f"https://twitter.com/{talent['account']}/status/{tweet_id}"
+                    now = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
                     item = {
                         "_id": tweet_id,
                         "id": tweet_id,
@@ -109,9 +111,66 @@ def pull_tweets_from_nitter() -> list[Tweet]:
                         "raw_content": tweet.summary,
                         "has_media": has_media,
                         "talent": talent["account"].lower(),
-                        "version": 3,
+                        "version": 4,
+                        "source": "nitter",
                         "keyword": keyword,
-                        "timestamp": dp.parse(tweet.published)
+                        "timestamp": dp.parse(tweet.published),
+                        "scraped": dp.parse(now)
+                    }
+                    res = app.database["tweets"].update_one(
+                        filter={"_id": tweet_id},
+                        update={'$setOnInsert': item},
+                        upsert=True)
+                    num_added = num_added + res.modified_count
+                    tweet_list.append(item)
+                    break
+    log(f"Added {num_added} tweets to DB (fetched {len(tweet_list)})")
+    return tweet_list
+
+
+# https://github.com/12joan/twitter-client
+def pull_tweets_from_twitter_client() -> list[Tweet]:
+    tweet_list = []
+    num_added = 0
+    for talent in TALENTS_LIST:
+        query = f"{API_URL}/{talent['account']}/rss"
+        feed = fp.parse(query)
+        for tweet in feed.entries:
+            url = tweet.link.split("/")
+            for keyword in list(KEYWORDS_SCHEDULE + KEYWORDS_GUERILLA):
+                tweet_body = tweet.summary.lower()
+                keyword = keyword.lower()
+                if keyword in tweet_body:
+                    has_media = "<img src=" in tweet_body
+                    # skip retweets (just to be sure)
+                    if EXCLUDE_RTS and url[3] != talent["account"]:
+                        continue
+                    # normalize keywords
+                    if keyword in KEYWORDS_SCHEDULE:
+                        keyword = "schedule"
+                        # skip schedule tweets with no picture attached
+                        if not has_media:
+                            continue
+                    elif keyword in KEYWORDS_GUERILLA:
+                        keyword = "guerilla"
+                    else:
+                        keyword = "other"
+                    tweet_id = url[5]
+                    tweet_url = f"https://twitter.com/{talent['account']}/status/{tweet_id}"
+                    now = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+                    item = {
+                        "_id": tweet_id,
+                        "id": tweet_id,
+                        "url": tweet_url,
+                        "content": clean_html(tweet.summary),
+                        "raw_content": tweet.summary,
+                        "has_media": has_media,
+                        "talent": talent["account"].lower(),
+                        "version": 4,
+                        "source": "twitter-client",
+                        "keyword": keyword,
+                        "published": dp.parse(tweet.published),
+                        "scraped": dp.parse(now)
                     }
                     res = app.database["tweets"].update_one(
                         filter={"_id": tweet_id},
@@ -191,7 +250,7 @@ def health():
 
 @app.get("/populate", include_in_schema=False)
 def populate() -> list[Tweet]:
-    tweets = pull_tweets_from_nitter()
+    tweets = pull_tweets_from_twitter_client()
     return tweets
 
 
