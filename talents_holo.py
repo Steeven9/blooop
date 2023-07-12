@@ -303,57 +303,52 @@ talents += [{
     },
 }]
 # TEMPUS Vanguard
-talents += [
-    {
-        "account": "banzoinhakka",
-        "name": "Banzoin Hakka",
-        "agency": "Holostars",
-        "branch": "EN",
-        "generation": "TEMPUS Vanguard",
-        "generationId": 2,
-        "active": True,
-        "colors": {
-            "light": "#C99BF6",
-            "dark": ""
-        },
+talents += [{
+    "account": "banzoinhakka",
+    "name": "Banzoin Hakka",
+    "agency": "Holostars",
+    "branch": "EN",
+    "generation": "TEMPUS Vanguard",
+    "generationId": 2,
+    "active": True,
+    "colors": {
+        "light": "#C99BF6",
+        "dark": ""
     },
-    {
-        "account": "gavisbettel",
-        "name": "Gavis Bettel",
-        "agency": "Holostars",
-        "branch": "EN",
-        "generation": "TEMPUS Vanguard",
-        "generationId": 2,
-        "active": True,
-        "colors": {
-            "light": "#EB3DA2",
-            "dark": ""
-        },
+}, {
+    "account": "gavisbettel",
+    "name": "Gavis Bettel",
+    "agency": "Holostars",
+    "branch": "EN",
+    "generation": "TEMPUS Vanguard",
+    "generationId": 2,
+    "active": True,
+    "colors": {
+        "light": "#EB3DA2",
+        "dark": ""
     },
-    {
-        "account": "josuijishinri",
-        "name": "Josuiji Shinri",
-        "agency": "Holostars",
-        "branch": "EN",
-        "generation": "TEMPUS Vanguard",
-        "generationId": 2,
-        "active": True,
-        "colors": {
-            "light": "#B44D32",
-            "dark": ""
-        },
+}, {
+    "account": "josuijishinri",
+    "name": "Josuiji Shinri",
+    "agency": "Holostars",
+    "branch": "EN",
+    "generation": "TEMPUS Vanguard",
+    "generationId": 2,
+    "active": True,
+    "colors": {
+        "light": "#B44D32",
+        "dark": ""
     },
-    {
-        "account": "machinaxflayon",
-        "name": "Machina X Flayon",
-        "agency": "Holostars",
-        "branch": "EN",
-        "generation": "TEMPUS Vanguard",
-        "generationId": 2,
-        "active": True,
-        "colors": {
-            "light": "#DD3F34",
-            "dark": ""
-        },
+}, {
+    "account": "machinaxflayon",
+    "name": "Machina X Flayon",
+    "agency": "Holostars",
+    "branch": "EN",
+    "generation": "TEMPUS Vanguard",
+    "generationId": 2,
+    "active": True,
+    "colors": {
+        "light": "#DD3F34",
+        "dark": ""
     },
-]
+}]

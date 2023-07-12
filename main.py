@@ -114,7 +114,7 @@ def pull_tweets_from_nitter() -> list[Tweet]:
                         "version": 4,
                         "source": "nitter",
                         "keyword": keyword,
-                        "timestamp": dp.parse(tweet.published),
+                        "published": dp.parse(tweet.published),
                         "scraped": dp.parse(now)
                     }
                     res = app.database["tweets"].update_one(
@@ -250,7 +250,7 @@ def health():
 
 @app.get("/populate", include_in_schema=False)
 def populate() -> list[Tweet]:
-    tweets = pull_tweets_from_twitter_client()
+    tweets = pull_tweets_from_nitter()
     return tweets
 
 

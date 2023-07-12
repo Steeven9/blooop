@@ -108,7 +108,7 @@ talents += [{
     "branch": "EN",
     "generation": "Ethyria",
     "generationId": 3,
-    "active": True,
+    "active": False,
     "colors": {
         "light": "",
         "dark": ""
@@ -315,7 +315,7 @@ talents += [{
 # XSOLEIL
 talents += [{
     "account": "D_Dropscythe",
-    "name": "Scarle Yonaguni",
+    "name": "Doppio Dropscythe",
     "agency": "Nijisanji",
     "branch": "EN",
     "generation": "XSOLEIL",
@@ -327,7 +327,7 @@ talents += [{
     }
 }, {
     "account": "HexHaywire",
-    "name": "Scarle Yonaguni",
+    "name": "Hex Haywire",
     "agency": "Nijisanji",
     "branch": "EN",
     "generation": "XSOLEIL",
@@ -339,7 +339,7 @@ talents += [{
     }
 }, {
     "account": "KotokaTorahime",
-    "name": "Scarle Yonaguni",
+    "name": "Kotoka Torahime",
     "agency": "Nijisanji",
     "branch": "EN",
     "generation": "XSOLEIL",
@@ -351,7 +351,7 @@ talents += [{
     }
 }, {
     "account": "MelocoKyoran",
-    "name": "Scarle Yonaguni",
+    "name": "Meloco Kyoran",
     "agency": "Nijisanji",
     "branch": "EN",
     "generation": "XSOLEIL",
@@ -363,7 +363,7 @@ talents += [{
     }
 }, {
     "account": "Ver_Vermillion",
-    "name": "Scarle Yonaguni",
+    "name": "Ver Vermillion",
     "agency": "Nijisanji",
     "branch": "EN",
     "generation": "XSOLEIL",
@@ -375,7 +375,7 @@ talents += [{
     }
 }, {
     "account": "ZaionLanZa",
-    "name": "Scarle Yonaguni",
+    "name": "Zaion LanZa",
     "agency": "Nijisanji",
     "branch": "EN",
     "generation": "XSOLEIL",
