@@ -38,6 +38,7 @@ talents = [{
         "dark": ""
     }
 }]
+
 # OBSYDIA
 talents += [{
     "account": "Petra_Gurin",
@@ -76,6 +77,7 @@ talents += [{
         "dark": ""
     }
 }]
+
 # Ethyria
 talents += [{
     "account": "EnnaAlouette",
@@ -126,6 +128,7 @@ talents += [{
         "dark": ""
     }
 }]
+
 # Luxiem
 talents += [{
     "account": "ike_eveland",
@@ -158,7 +161,7 @@ talents += [{
     "branch": "EN",
     "generation": "Luxiem",
     "generationId": 4,
-    "active": True,
+    "active": False,
     "colors": {
         "light": "",
         "dark": ""
@@ -176,6 +179,7 @@ talents += [{
         "dark": ""
     }
 }]
+
 # Noctyx
 talents += [{
     "account": "alban_knox",
@@ -238,6 +242,7 @@ talents += [{
         "dark": ""
     }
 }]
+
 # ILUNA
 talents += [{
     "account": "AiaAmare",
@@ -312,6 +317,7 @@ talents += [{
         "dark": ""
     }
 }]
+
 # XSOLEIL
 talents += [{
     "account": "D_Dropscythe",
@@ -386,6 +392,7 @@ talents += [{
         "dark": ""
     }
 }]
+
 # Krisis
 talents += [{
     "account": "YuQWilson",

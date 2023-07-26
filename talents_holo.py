@@ -62,6 +62,7 @@ talents = [{
         "dark": "#F2BD36"
     }
 }]
+
 # Hope
 talents += [{
     "account": "irys_en",
@@ -76,6 +77,7 @@ talents += [{
         "dark": "#991150"
     }
 }]
+
 # Council
 talents += [{
     "account": "ceresfauna",
@@ -138,6 +140,7 @@ talents += [{
         "dark": "#D583AB"
     }
 }]
+
 # ID gen 1
 talents += [{
     "account": "airaniiofifteen",
@@ -176,6 +179,7 @@ talents += [{
         "dark": "#784DBE"
     },
 }]
+
 # ID gen 2
 talents += [{
     "account": "anyamelfissa",
@@ -214,6 +218,7 @@ talents += [{
         "dark": "#040F7F"
     },
 }]
+
 # ID gen 3
 talents += [{
     "account": "kaelakovalskia",
@@ -252,6 +257,7 @@ talents += [{
         "dark": "#97A1AE"
     },
 }]
+
 # TEMPUS HQ
 talents += [{
     "account": "axelsyrios",
@@ -302,6 +308,7 @@ talents += [{
         "dark": ""
     },
 }]
+
 # TEMPUS Vanguard
 talents += [{
     "account": "banzoinhakka",
@@ -350,5 +357,56 @@ talents += [{
     "colors": {
         "light": "#DD3F34",
         "dark": ""
+    },
+}]
+
+# Advent
+talents += [{
+    "account": "shiorinovella",
+    "name": "Shiori Novella",
+    "agency": "Hololive",
+    "branch": "EN",
+    "generation": "Advent",
+    "generationId": 3,
+    "active": True,
+    "colors": {
+        "light": "#B8A0CD",
+        "dark": "#8C80AE"
+    },
+}, {
+    "account": "kosekibijou",
+    "name": "Koseki Bijou",
+    "agency": "Hololive",
+    "branch": "EN",
+    "generation": "Advent",
+    "generationId": 3,
+    "active": True,
+    "colors": {
+        "light": "#6E5BF4",
+        "dark": "#4B43DF"
+    },
+}, {
+    "account": "nerissa_en",
+    "name": "Nerissa Ravencroft",
+    "agency": "Hololive",
+    "branch": "EN",
+    "generation": "Advent",
+    "generationId": 3,
+    "active": True,
+    "colors": {
+        "light": "#2233FB",
+        "dark": "#1E27AC"
+    },
+}, {
+    "account": "fuwamoco_en",
+    "name": "FUWAMOCO",
+    "agency": "Hololive",
+    "branch": "EN",
+    "generation": "Advent",
+    "generationId": 3,
+    "active": True,
+    "colors": {
+        "light": "#67B2FF",
+        "dark": "#2D87F7"
     },
 }]
