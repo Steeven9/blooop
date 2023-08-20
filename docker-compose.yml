@@ -1,0 +1,64 @@
+version: "3.9"
+services:
+  blooop:
+    image: steeven9/blooop
+    container_name: blooop
+    environment:
+      - MONGODB_URI=mongodb://mongo
+      - TWITTER_API_URL=http://nitter:8080
+      - ENVIRONMENT=PROD
+    ports:
+      - 5000:5000
+    depends_on:
+      - mongo
+      - nitter
+
+  nitter:
+    image: zedeus/nitter
+    container_name: nitter
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+    volumes:
+      - ./nitter.conf:/src/nitter.conf:Z,ro
+    healthcheck:
+      test: wget -nv --tries=1 --spider http://127.0.0.1:8080/Jack/status/20 || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 2
+    user: "998:998"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db
+
+  redis:
+    image: redis
+    container_name: redis
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: redis-cli ping
+      interval: 30s
+      timeout: 5s
+      retries: 2
+    user: "999:1000"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+volumes:
+  mongo:
+  redis:

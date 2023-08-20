@@ -7,34 +7,46 @@
 RSS feed aggregator for vtubers schedule tweets to
 feed our [Hololive](https://holocal.moe) and [Nijisanji](https://nijien.vercel.app) calendars.
 
-## Warning: API in development, can change often and without notice
+## How it works
 
-## Setup
+Blooop obtains the tweets for the specified talents from a Nitter instance,
+which then get saved in a MongoDB instance for faster indexing.
 
-Clone the repo and install the requirements:
+Check the [API documentation](https://blooop.moe/docs) to see the available endpoints!
 
-    pip install --no-cache-dir -r requirements.txt
+### ⚠️ Warning ⚠️
 
-## Usage
+Blooop's API is still in development, so it can change often and without notice.
 
-    gunicorn main:app
+Twitter is also changing their API left and right which makes it harder to
+get the tweets we need. Expect stuff to break sometimes - check Nitter's
+[issues page](https://github.com/zedeus/nitter/issues) for updates.
 
 ## Run in Docker
 
-Build or pull from [Dockerhub](https://hub.docker.com/repository/docker/steeven9/blooop) the image and run it:
+Check and eventually adjust the values in the `docker-compose.yml`
+file, then bring up the stack:
 
-    docker build . -t blooop
-    docker run --name blooop -p 5000:5000 blooop
+    docker-compose up
+
+Browse to `http://localhost:5000` and enjoy!
+
+## Local setup
+
+Assuming you already have a Nitter and MongoDB set up, install the requirements:
+
+    pip install --no-cache-dir -r requirements.txt
+
+Then run the app:
+
+    gunicorn main:app
 
 ## Credits
 
 Logo by the one and only [Shiro](https://twitter.com/OgumaShiro)!
 
-~~This project relies on a self-hosted non-public instance of [Nitter](https://github.com/zedeus/nitter),
-an ad- and tracking-free alternative to Twitter - be sure to check it out!~~
-
-Since Twitter made it harder to fetch tweets, we now use [twitter-client](https://github.com/12joan/twitter-client),
-a small script to fetch tweet data.
+This project relies on a self-hosted non-public instance of [Nitter](https://github.com/zedeus/nitter),
+an ad- and tracking-free alternative to Twitter - be sure to check it out!
 
 Huge thanks to the teams of `KFP | The Office` and `Nijisanji EN Schedule Team`
 for helping with debugging and feature suggestions.
