@@ -278,7 +278,7 @@ talents += [{
     "branch": "EN",
     "generation": "TEMPUS HQ",
     "generationId": 1,
-    "active": True,
+    "active": False,
     "colors": {
         "light": "#463464",
         "dark": ""
@@ -290,7 +290,7 @@ talents += [{
     "branch": "EN",
     "generation": "TEMPUS HQ",
     "generationId": 1,
-    "active": True,
+    "active": False,
     "colors": {
         "light": "#C8CCD0",
         "dark": ""
