@@ -73,10 +73,10 @@ def pull_tweets_from_nitter() -> list[Tweet]:
     tweet_list = []
     num_added = 0
     for talent in TALENTS_LIST:
-        query = f"{API_URL}/{talent['account']}/search/rss?f=tweets"
+        query = f"{API_URL}/search/rss?f=tweets&q=from%3A{talent['account']}"
         # exclude RTs and replies
         if EXCLUDE_RTS:
-            query += "&e-nativeretweets=on"
+            query += "&e-nativeretweets=on&e-quote=on"
         if EXCLUDE_REPLIES:
             query += "&e-replies=on"
         feed = fp.parse(query)
