@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:alpine
 
 WORKDIR /usr/src/app
 EXPOSE 5000
