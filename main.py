@@ -215,7 +215,7 @@ def tweets_by_list(request: Request, talents: str) -> list[Tweet]:
          summary="Get tweets for a specific fan server")
 def tweets_server(request: Request,
                   server: str,
-                  newestId: str = None) -> list[Tweet]:
+                  newest_id: str = None) -> list[Tweet]:
     if server.upper() == "KFP":
         talents = talents_holo
     elif server.upper() == "NEST":
@@ -228,8 +228,8 @@ def tweets_server(request: Request,
             "$in": [talent["account"].lower() for talent in talents]
         }
     }
-    if newestId is not None:
-        db_filter["$expr"] = {"$gt": [{"$toLong": "$id"}, int(newestId)]}
+    if newest_id is not None:
+        db_filter["$expr"] = {"$gt": [{"$toLong": "$id"}, int(newest_id)]}
     return list(
         request.app.database["tweets"].find(db_filter).sort(SORTING_PARAM))
 
