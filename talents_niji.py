@@ -504,7 +504,7 @@ talents += [
     },
     {
         "account": "VBrightshield",
-        "name": "Victoria Brightshield ",
+        "name": "Victoria Brightshield",
         "agency": "Nijisanji",
         "branch": "EN",
         "generation": "TTT",
