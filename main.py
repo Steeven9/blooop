@@ -188,6 +188,16 @@ def talents() -> list[Talent]:
     return TALENTS_LIST
 
 
+@app.get("/talents/{server}", summary="List watched talents for a server")
+def talents(server: str) -> list[Talent]:
+    if server.upper() == "KFP":
+        return talents_holo
+    elif server.upper() == "NEST":
+        return talents_niji
+    else:
+        return []
+
+
 @app.get("/tweets", summary="Get all tweets")
 def tweets(request: Request) -> list[Tweet]:
     return list(request.app.database["tweets"].find({}).sort(SORTING_PARAM))
