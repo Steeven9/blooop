@@ -257,7 +257,8 @@ def populate() -> list[Tweet]:
 @app.on_event("startup")
 def startup_db_client():
     app.mongodb_client = MongoClient(CONNECTION_STRING,
-                                     serverSelectionTimeoutMS=5)
+                                     serverSelectionTimeoutMS=5,
+                                     appname="blooop")
     app.database = app.mongodb_client["schedule"]
     app.mongodb_client.server_info()
     log("Connected to the MongoDB database!")
