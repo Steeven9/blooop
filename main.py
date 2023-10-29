@@ -43,13 +43,17 @@ API_URL = getenv("TWITTER_API_URL")
 CLEANER = re.compile('<.*?>')
 ACTIVE_TALENTS_LIST: list[Talent] = list(
     filter(lambda x: (x["active"]), talents_holo + talents_niji))
+ACTIVE_TALENTS_HOLO: list[Talent] = list(
+    filter(lambda x: (x["active"]), talents_holo))
+ACTIVE_TALENTS_NIJI: list[Talent] = list(
+    filter(lambda x: (x["active"]), talents_niji))
 SORTING_PARAM = [("id", ASCENDING)]
 EXCLUDE_RTS = True
 EXCLUDE_REPLIES = True
 
 ACTIVE_TALENTS_LIST.sort(key=itemgetter("agency", "generationId", "name"))
-talents_holo.sort(key=itemgetter("agency", "generationId", "name"))
-talents_niji.sort(key=itemgetter("generationId", "name"))
+ACTIVE_TALENTS_HOLO.sort(key=itemgetter("agency", "generationId", "name"))
+ACTIVE_TALENTS_NIJI.sort(key=itemgetter("generationId", "name"))
 
 if CONNECTION_STRING == None:
     raise ValueError("Missing connection string!")
@@ -193,9 +197,9 @@ def talents() -> list[Talent]:
 @app.get("/talents/{server}", summary="List watched talents for a server")
 def talents(server: str) -> list[Talent]:
     if server.upper() == "KFP":
-        return talents_holo
+        return ACTIVE_TALENTS_HOLO
     elif server.upper() == "NEST":
-        return talents_niji
+        return ACTIVE_TALENTS_NIJI
     else:
         return []
 
@@ -232,9 +236,9 @@ def tweets_server(
     newestId: str = None
 ) -> list[Tweet]:
     if server.upper() == "KFP":
-        talents = talents_holo
+        talents = ACTIVE_TALENTS_HOLO
     elif server.upper() == "NEST":
-        talents = talents_niji
+        talents = ACTIVE_TALENTS_NIJI
     else:
         talents = []
 
