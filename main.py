@@ -21,7 +21,6 @@ class Talent(BaseModel):
     account: str
     name: str
     agency: str
-    branch: str
     generation: str
     generationId: int
     active: bool
@@ -42,12 +41,15 @@ class Tweet(BaseModel):
 CONNECTION_STRING = getenv("MONGODB_URI")
 API_URL = getenv("TWITTER_API_URL")
 CLEANER = re.compile('<.*?>')
-TALENTS_LIST: list[Talent] = list(
+ACTIVE_TALENTS_LIST: list[Talent] = list(
     filter(lambda x: (x["active"]), talents_holo + talents_niji))
-TALENTS_LIST.sort(key=itemgetter("agency", "branch", "generationId", "name"))
 SORTING_PARAM = [("id", ASCENDING)]
 EXCLUDE_RTS = True
 EXCLUDE_REPLIES = True
+
+ACTIVE_TALENTS_LIST.sort(key=itemgetter("agency", "generationId", "name"))
+talents_holo.sort(key=itemgetter("agency", "generationId", "name"))
+talents_niji.sort(key=itemgetter("generationId", "name"))
 
 if CONNECTION_STRING == None:
     raise ValueError("Missing connection string!")
@@ -72,7 +74,7 @@ def log(msg: str, level="INFO") -> None:
 def pull_tweets_from_nitter() -> list[Tweet]:
     tweet_list = []
     num_added = 0
-    for talent in TALENTS_LIST:
+    for talent in ACTIVE_TALENTS_LIST:
         query = f"{API_URL}/search/rss?f=tweets&q=from%3A{talent['account']}"
         # exclude RTs and replies
         if EXCLUDE_RTS:
@@ -132,7 +134,7 @@ def pull_tweets_from_nitter() -> list[Tweet]:
 def pull_tweets_from_twitter_client() -> list[Tweet]:
     tweet_list = []
     num_added = 0
-    for talent in TALENTS_LIST:
+    for talent in ACTIVE_TALENTS_LIST:
         query = f"{API_URL}/{talent['account']}/rss"
         feed = fp.parse(query)
         for tweet in feed.entries:
@@ -185,7 +187,7 @@ def pull_tweets_from_twitter_client() -> list[Tweet]:
 
 @app.get("/talents", summary="List all watched talents")
 def talents() -> list[Talent]:
-    return TALENTS_LIST
+    return ACTIVE_TALENTS_LIST
 
 
 @app.get("/talents/{server}", summary="List watched talents for a server")
@@ -223,9 +225,12 @@ def tweets_by_list(request: Request, talents: str) -> list[Tweet]:
 
 @app.get("/tweetsByServer/{server}",
          summary="Get tweets for a specific fan server")
-def tweets_server(request: Request,
-                  server: str,
-                  newest_id: str = None) -> list[Tweet]:
+def tweets_server(
+    request: Request,
+    server: str,
+    # DO NOT RENAME THIS VARIABLE TO PLEASE SONARLINT!!!!!! IT WILL BREAK THE API!!!!
+    newestId: str = None
+) -> list[Tweet]:
     if server.upper() == "KFP":
         talents = talents_holo
     elif server.upper() == "NEST":
@@ -238,8 +243,8 @@ def tweets_server(request: Request,
             "$in": [talent["account"].lower() for talent in talents]
         }
     }
-    if newest_id is not None:
-        db_filter["$expr"] = {"$gt": [{"$toLong": "$id"}, int(newest_id)]}
+    if newestId is not None:
+        db_filter["$expr"] = {"$gt": [{"$toLong": "$id"}, int(newestId)]}
     return list(
         request.app.database["tweets"].find(db_filter).sort(SORTING_PARAM))
 

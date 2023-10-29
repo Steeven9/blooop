@@ -5,8 +5,7 @@ talents = [
     {
         "account": "gawrgura",
         "name": "Gawr Gura",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Myth",
         "generationId": 1,
         "active": True,
@@ -18,8 +17,7 @@ talents = [
     {
         "account": "moricalliope",
         "name": "Mori Calliope",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Myth",
         "generationId": 1,
         "active": True,
@@ -31,8 +29,7 @@ talents = [
     {
         "account": "ninomaeinanis",
         "name": "Ninomae Ina'nis",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Myth",
         "generationId": 1,
         "active": True,
@@ -44,8 +41,7 @@ talents = [
     {
         "account": "takanashikiara",
         "name": "Takanashi Kiara",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Myth",
         "generationId": 1,
         "active": True,
@@ -57,8 +53,7 @@ talents = [
     {
         "account": "watsonameliaEN",
         "name": "Watson Amelia",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Myth",
         "generationId": 1,
         "active": True,
@@ -69,30 +64,14 @@ talents = [
     },
 ]
 
-# Hope
-talents += [{
-    "account": "irys_en",
-    "name": "IRyS",
-    "agency": "Hololive",
-    "branch": "EN",
-    "generation": "Project: HOPE",
-    "generationId": 2,
-    "active": True,
-    "colors": {
-        "light": "#E10E5B",
-        "dark": "#991150"
-    },
-}]
-
-# Council
+# Promise
 talents += [
     {
         "account": "ceresfauna",
         "name": "Ceres Fauna",
-        "agency": "Hololive",
-        "branch": "EN",
-        "generation": "Council",
-        "generationId": 3,
+        "agency": "Hololive EN",
+        "generation": "Promise (former Council)",
+        "generationId": 2,
         "active": True,
         "colors": {
             "light": "#B4E4C7",
@@ -102,10 +81,9 @@ talents += [
     {
         "account": "hakosbaelz",
         "name": "Hakos Baelz",
-        "agency": "Hololive",
-        "branch": "EN",
-        "generation": "Council",
-        "generationId": 3,
+        "agency": "Hololive EN",
+        "generation": "Promise (former Council)",
+        "generationId": 2,
         "active": True,
         "colors": {
             "light": "#FF938D",
@@ -113,12 +91,23 @@ talents += [
         },
     },
     {
+        "account": "irys_en",
+        "name": "IRyS",
+        "agency": "Hololive EN",
+        "generation": "Promise (former Project: HOPE)",
+        "generationId": 2,
+        "active": True,
+        "colors": {
+            "light": "#E10E5B",
+            "dark": "#991150"
+        },
+    },
+    {
         "account": "nanashimumei_en",
         "name": "Nanashi Mumei",
-        "agency": "Hololive",
-        "branch": "EN",
-        "generation": "Council",
-        "generationId": 3,
+        "agency": "Hololive EN",
+        "generation": "Promise (former Council)",
+        "generationId": 2,
         "active": True,
         "colors": {
             "light": "#DCC4B2",
@@ -128,10 +117,9 @@ talents += [
     {
         "account": "ourokronii",
         "name": "Ouro Kronii",
-        "agency": "Hololive",
-        "branch": "EN",
-        "generation": "Council",
-        "generationId": 3,
+        "agency": "Hololive EN",
+        "generation": "Promise (former Council)",
+        "generationId": 2,
         "active": True,
         "colors": {
             "light": "#6879C7",
@@ -141,10 +129,9 @@ talents += [
     {
         "account": "tsukumosana",
         "name": "Tsukumo Sana",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Council",
-        "generationId": 3,
+        "generationId": 2,
         "active": False,
         "colors": {
             "light": "#E7BBD2",
@@ -158,8 +145,7 @@ talents += [
     {
         "account": "airaniiofifteen",
         "name": "Airani Iofifteen",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "Area 15",
         "generationId": 1,
         "active": True,
@@ -171,8 +157,7 @@ talents += [
     {
         "account": "ayunda_risu",
         "name": "Ayunda Risu",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "Area 15",
         "generationId": 1,
         "active": True,
@@ -184,8 +169,7 @@ talents += [
     {
         "account": "moonahoshinova",
         "name": "Moona Hoshinova",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "Area 15",
         "generationId": 1,
         "active": True,
@@ -201,8 +185,7 @@ talents += [
     {
         "account": "anyamelfissa",
         "name": "Anya Melfissa",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "Holoro",
         "generationId": 2,
         "active": True,
@@ -214,8 +197,7 @@ talents += [
     {
         "account": "kureijiollie",
         "name": "Kureiji Ollie",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "Holoro",
         "generationId": 2,
         "active": True,
@@ -227,8 +209,7 @@ talents += [
     {
         "account": "pavoliareine",
         "name": "Pavolia Reine",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "Holoro",
         "generationId": 2,
         "active": True,
@@ -244,8 +225,7 @@ talents += [
     {
         "account": "kaelakovalskia",
         "name": "Kaela Kovalskia",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "ID gen 3",
         "generationId": 3,
         "active": True,
@@ -257,8 +237,7 @@ talents += [
     {
         "account": "kobokanaeru",
         "name": "Kobo Kanaeru",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "ID gen 3",
         "generationId": 3,
         "active": True,
@@ -270,8 +249,7 @@ talents += [
     {
         "account": "vestiazeta",
         "name": "Vestia Zeta",
-        "agency": "Hololive",
-        "branch": "ID",
+        "agency": "Hololive ID",
         "generation": "ID gen 3",
         "generationId": 3,
         "active": True,
@@ -287,8 +265,7 @@ talents += [
     {
         "account": "axelsyrios",
         "name": "Axel Syrios",
-        "agency": "Holostars",
-        "branch": "EN",
+        "agency": "Holostars EN",
         "generation": "TEMPUS HQ",
         "generationId": 1,
         "active": True,
@@ -300,8 +277,7 @@ talents += [
     {
         "account": "magnidezmond",
         "name": "Magni Dezmond",
-        "agency": "Holostars",
-        "branch": "EN",
+        "agency": "Holostars EN",
         "generation": "TEMPUS HQ",
         "generationId": 1,
         "active": False,
@@ -313,8 +289,7 @@ talents += [
     {
         "account": "noirvesper_en",
         "name": "Noir Vesper",
-        "agency": "Holostars",
-        "branch": "EN",
+        "agency": "Holostars EN",
         "generation": "TEMPUS HQ",
         "generationId": 1,
         "active": False,
@@ -326,8 +301,7 @@ talents += [
     {
         "account": "regisaltare",
         "name": "Regis Altare",
-        "agency": "Holostars",
-        "branch": "EN",
+        "agency": "Holostars EN",
         "generation": "TEMPUS HQ",
         "generationId": 1,
         "active": True,
@@ -343,8 +317,7 @@ talents += [
     {
         "account": "banzoinhakka",
         "name": "Banzoin Hakka",
-        "agency": "Holostars",
-        "branch": "EN",
+        "agency": "Holostars EN",
         "generation": "TEMPUS Vanguard",
         "generationId": 2,
         "active": True,
@@ -356,8 +329,7 @@ talents += [
     {
         "account": "gavisbettel",
         "name": "Gavis Bettel",
-        "agency": "Holostars",
-        "branch": "EN",
+        "agency": "Holostars EN",
         "generation": "TEMPUS Vanguard",
         "generationId": 2,
         "active": True,
@@ -369,8 +341,7 @@ talents += [
     {
         "account": "josuijishinri",
         "name": "Josuiji Shinri",
-        "agency": "Holostars",
-        "branch": "EN",
+        "agency": "Holostars EN",
         "generation": "TEMPUS Vanguard",
         "generationId": 2,
         "active": True,
@@ -382,8 +353,7 @@ talents += [
     {
         "account": "machinaxflayon",
         "name": "Machina X Flayon",
-        "agency": "Holostars",
-        "branch": "EN",
+        "agency": "Holostars EN",
         "generation": "TEMPUS Vanguard",
         "generationId": 2,
         "active": True,
@@ -399,8 +369,7 @@ talents += [
     {
         "account": "shiorinovella",
         "name": "Shiori Novella",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Advent",
         "generationId": 3,
         "active": True,
@@ -412,8 +381,7 @@ talents += [
     {
         "account": "kosekibijou",
         "name": "Koseki Bijou",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Advent",
         "generationId": 3,
         "active": True,
@@ -425,8 +393,7 @@ talents += [
     {
         "account": "nerissa_en",
         "name": "Nerissa Ravencroft",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Advent",
         "generationId": 3,
         "active": True,
@@ -438,8 +405,7 @@ talents += [
     {
         "account": "fuwamoco_en",
         "name": "FUWAMOCO",
-        "agency": "Hololive",
-        "branch": "EN",
+        "agency": "Hololive EN",
         "generation": "Advent",
         "generationId": 3,
         "active": True,

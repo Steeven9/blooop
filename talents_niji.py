@@ -5,8 +5,7 @@ talents = [
     {
         "account": "EliraPendora",
         "name": "Elira Pendora",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "LazuLight",
         "generationId": 1,
         "active": True,
@@ -18,8 +17,7 @@ talents = [
     {
         "account": "FinanaRyugu",
         "name": "Finana Ryugu",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "LazuLight",
         "generationId": 1,
         "active": True,
@@ -31,8 +29,7 @@ talents = [
     {
         "account": "PomuRainpuff",
         "name": "Pomu Rainpuff",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "LazuLight",
         "generationId": 1,
         "active": True,
@@ -48,8 +45,7 @@ talents += [
     {
         "account": "Petra_Gurin",
         "name": "Petra Gurin",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "OBSYDIA",
         "generationId": 2,
         "active": True,
@@ -61,8 +57,7 @@ talents += [
     {
         "account": "Rosemi_Lovelock",
         "name": "Rosemi Lovelock",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "OBSYDIA",
         "generationId": 2,
         "active": True,
@@ -74,8 +69,7 @@ talents += [
     {
         "account": "Selen_Tatsuki",
         "name": "Selen Tatsuki",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "OBSYDIA",
         "generationId": 2,
         "active": True,
@@ -91,8 +85,7 @@ talents += [
     {
         "account": "EnnaAlouette",
         "name": "Enna Alouette",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Ethyria",
         "generationId": 3,
         "active": True,
@@ -104,8 +97,7 @@ talents += [
     {
         "account": "MillieParfait",
         "name": "Millie Parfait",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Ethyria",
         "generationId": 3,
         "active": True,
@@ -117,8 +109,7 @@ talents += [
     {
         "account": "NinaKosaka",
         "name": "Nina Kosaka",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Ethyria",
         "generationId": 3,
         "active": False,
@@ -130,8 +121,7 @@ talents += [
     {
         "account": "ReimuEndou",
         "name": "Reimu Endou",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Ethyria",
         "generationId": 3,
         "active": True,
@@ -147,8 +137,7 @@ talents += [
     {
         "account": "ike_eveland",
         "name": "Ike Eveland",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Luxiem",
         "generationId": 4,
         "active": True,
@@ -160,8 +149,7 @@ talents += [
     {
         "account": "luca_kaneshiro",
         "name": "Luca Kaneshiro",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Luxiem",
         "generationId": 4,
         "active": True,
@@ -173,8 +161,7 @@ talents += [
     {
         "account": "Mysta_Rias",
         "name": "Mysta Rias",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Luxiem",
         "generationId": 4,
         "active": False,
@@ -186,8 +173,7 @@ talents += [
     {
         "account": "Vox_Akuma",
         "name": "Vox Akuma",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Luxiem",
         "generationId": 4,
         "active": True,
@@ -203,8 +189,7 @@ talents += [
     {
         "account": "alban_knox",
         "name": "Alban Knox",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Noctyx",
         "generationId": 5,
         "active": True,
@@ -216,8 +201,7 @@ talents += [
     {
         "account": "Fulgur_Ovid",
         "name": "Fulgur Ovid",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Noctyx",
         "generationId": 5,
         "active": True,
@@ -229,8 +213,7 @@ talents += [
     {
         "account": "sonny_brisko",
         "name": "Sonny Brisko",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Noctyx",
         "generationId": 5,
         "active": True,
@@ -242,8 +225,7 @@ talents += [
     {
         "account": "uki_violeta",
         "name": "Uki Violeta",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Noctyx",
         "generationId": 5,
         "active": True,
@@ -255,8 +237,7 @@ talents += [
     {
         "account": "Yugo_Asuma",
         "name": "Yugo Asuma",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Noctyx",
         "generationId": 5,
         "active": False,
@@ -272,8 +253,7 @@ talents += [
     {
         "account": "AiaAmare",
         "name": "Aia Amare",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "ILUNA",
         "generationId": 6,
         "active": True,
@@ -285,8 +265,7 @@ talents += [
     {
         "account": "AsterArcadia",
         "name": "Aster Arcadia",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "ILUNA",
         "generationId": 6,
         "active": True,
@@ -298,8 +277,7 @@ talents += [
     {
         "account": "KyoKanek0",
         "name": "Kyo Kaneko",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "ILUNA",
         "generationId": 6,
         "active": True,
@@ -311,8 +289,7 @@ talents += [
     {
         "account": "MariaMari0nette",
         "name": "Maria Marionette",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "ILUNA",
         "generationId": 6,
         "active": True,
@@ -324,8 +301,7 @@ talents += [
     {
         "account": "RenZott0",
         "name": "Ren Zotto",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "ILUNA",
         "generationId": 6,
         "active": True,
@@ -337,8 +313,7 @@ talents += [
     {
         "account": "ScarleYonaguni",
         "name": "Scarle Yonaguni",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "ILUNA",
         "generationId": 6,
         "active": True,
@@ -354,8 +329,7 @@ talents += [
     {
         "account": "D_Dropscythe",
         "name": "Doppio Dropscythe",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "XSOLEIL",
         "generationId": 7,
         "active": True,
@@ -367,8 +341,7 @@ talents += [
     {
         "account": "HexHaywire",
         "name": "Hex Haywire",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "XSOLEIL",
         "generationId": 7,
         "active": True,
@@ -380,8 +353,7 @@ talents += [
     {
         "account": "KotokaTorahime",
         "name": "Kotoka Torahime",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "XSOLEIL",
         "generationId": 7,
         "active": True,
@@ -393,8 +365,7 @@ talents += [
     {
         "account": "MelocoKyoran",
         "name": "Meloco Kyoran",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "XSOLEIL",
         "generationId": 7,
         "active": True,
@@ -406,8 +377,7 @@ talents += [
     {
         "account": "Ver_Vermillion",
         "name": "Ver Vermillion",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "XSOLEIL",
         "generationId": 7,
         "active": True,
@@ -419,8 +389,7 @@ talents += [
     {
         "account": "ZaionLanZa",
         "name": "Zaion LanZa",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "XSOLEIL",
         "generationId": 7,
         "active": False,
@@ -436,8 +405,7 @@ talents += [
     {
         "account": "YuQWilson",
         "name": "Yu Q. Wilson",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Krisis",
         "generationId": 8,
         "active": True,
@@ -449,8 +417,7 @@ talents += [
     {
         "account": "Tyrant_Vanta",
         "name": "Vantacrow Bringer",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Krisis",
         "generationId": 8,
         "active": True,
@@ -462,8 +429,7 @@ talents += [
     {
         "account": "VezaliusBandage",
         "name": "Vezalius Bandage",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "Krisis",
         "generationId": 8,
         "active": True,
@@ -479,8 +445,7 @@ talents += [
     {
         "account": "ClaudeClawmark",
         "name": "Claude Clawmark",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "TTT",
         "generationId": 9,
         "active": True,
@@ -492,8 +457,7 @@ talents += [
     {
         "account": "KunaiNakasato",
         "name": "Kunai Nakasato",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "TTT",
         "generationId": 9,
         "active": True,
@@ -505,8 +469,7 @@ talents += [
     {
         "account": "VBrightshield",
         "name": "Victoria Brightshield",
-        "agency": "Nijisanji",
-        "branch": "EN",
+        "agency": "Nijisanji EN",
         "generation": "TTT",
         "generationId": 9,
         "active": True,
