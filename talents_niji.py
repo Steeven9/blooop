@@ -171,6 +171,18 @@ talents += [
         },
     },
     {
+        "account": "shu_yamino",
+        "name": "Shu Yamino",
+        "agency": "Nijisanji EN",
+        "generation": "Luxiem",
+        "generationId": 4,
+        "active": True,
+        "colors": {
+            "light": "",
+            "dark": ""
+        },
+    },
+    {
         "account": "Vox_Akuma",
         "name": "Vox Akuma",
         "agency": "Nijisanji EN",

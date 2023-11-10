@@ -194,6 +194,7 @@ def talents() -> list[Talent]:
     return ACTIVE_TALENTS_LIST
 
 
+#TODO add paramter to get all talents
 @app.get("/talents/{server}", summary="List watched talents for a server")
 def talents(server: str) -> list[Talent]:
     if server.upper() == "KFP":
