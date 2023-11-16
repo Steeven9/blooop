@@ -364,6 +364,58 @@ talents += [
     },
 ]
 
+# TEMPUS ARMIS
+talents += [
+    {
+        "account": "crimzonruze",
+        "name": "Crimzon Ruze",
+        "agency": "Holostars EN",
+        "generation": "TEMPUS ARMIS",
+        "generationId": 3,
+        "active": True,
+        "colors": {
+            "light": "",
+            "dark": ""
+        },
+    },
+    {
+        "account": "goldbullet_en",
+        "name": "Goldbullet",
+        "agency": "Holostars EN",
+        "generation": "TEMPUS ARMIS",
+        "generationId": 3,
+        "active": True,
+        "colors": {
+            "light": "",
+            "dark": ""
+        },
+    },
+    {
+        "account": "jurardtrexford",
+        "name": "Jurard T Rexford",
+        "agency": "Holostars EN",
+        "generation": "TEMPUS ARMIS",
+        "generationId": 3,
+        "active": True,
+        "colors": {
+            "light": "",
+            "dark": ""
+        },
+    },
+    {
+        "account": "octavio_holo",
+        "name": "Octavio",
+        "agency": "Holostars EN",
+        "generation": "TEMPUS ARMIS",
+        "generationId": 3,
+        "active": True,
+        "colors": {
+            "light": "",
+            "dark": ""
+        },
+    },
+]
+
 # Advent
 talents += [
     {
