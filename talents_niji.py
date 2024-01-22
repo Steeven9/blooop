@@ -32,7 +32,7 @@ talents = [
         "agency": "Nijisanji EN",
         "generation": "LazuLight",
         "generationId": 1,
-        "active": True,
+        "active": False,
         "colors": {
             "light": "",
             "dark": ""
