@@ -72,7 +72,7 @@ talents += [
         "agency": "Nijisanji EN",
         "generation": "OBSYDIA",
         "generationId": 2,
-        "active": True,
+        "active": False,
         "colors": {
             "light": "",
             "dark": ""
@@ -292,7 +292,7 @@ talents += [
         "agency": "Nijisanji EN",
         "generation": "ILUNA",
         "generationId": 6,
-        "active": True,
+        "active": False,
         "colors": {
             "light": "",
             "dark": ""
