@@ -14,6 +14,7 @@ from pymongo import ASCENDING, MongoClient
 
 from keywords import KEYWORDS_GUERILLA, KEYWORDS_SCHEDULE
 from talents_holo import talents as talents_holo
+from talents_indie import talents as talents_indie
 from talents_niji import talents as talents_niji
 
 
@@ -41,19 +42,20 @@ class Tweet(BaseModel):
 CONNECTION_STRING = getenv("MONGODB_URI")
 API_URL = getenv("TWITTER_API_URL")
 CLEANER = re.compile('<.*?>')
-ACTIVE_TALENTS_LIST: list[Talent] = list(
-    filter(lambda x: (x["active"]), talents_holo + talents_niji))
-ACTIVE_TALENTS_HOLO: list[Talent] = list(
-    filter(lambda x: (x["active"]), talents_holo))
-ACTIVE_TALENTS_NIJI: list[Talent] = list(
-    filter(lambda x: (x["active"]), talents_niji))
 SORTING_PARAM = [("id", ASCENDING)]
 EXCLUDE_RTS = True
 EXCLUDE_REPLIES = True
 
-ACTIVE_TALENTS_LIST.sort(key=itemgetter("agency", "generationId", "name"))
+ACTIVE_TALENTS_HOLO: list[Talent] = list(
+    filter(lambda x: (x["active"]), talents_holo))
+ACTIVE_TALENTS_NIJI: list[Talent] = list(
+    filter(lambda x: (x["active"]), talents_niji))
+ACTIVE_TALENTS_INDIE: list[Talent] = list(
+    filter(lambda x: (x["active"]), talents_indie))
 ACTIVE_TALENTS_HOLO.sort(key=itemgetter("agency", "generationId", "name"))
 ACTIVE_TALENTS_NIJI.sort(key=itemgetter("generationId", "name"))
+ACTIVE_TALENTS_INDIE.sort(key=itemgetter("name"))
+ACTIVE_TALENTS_LIST = ACTIVE_TALENTS_HOLO + ACTIVE_TALENTS_NIJI + ACTIVE_TALENTS_INDIE
 
 if CONNECTION_STRING == None:
     raise ValueError("Missing connection string!")
@@ -134,61 +136,6 @@ def pull_tweets_from_nitter() -> list[Tweet]:
     return tweet_list
 
 
-# https://github.com/12joan/twitter-client
-def pull_tweets_from_twitter_client() -> list[Tweet]:
-    tweet_list = []
-    num_added = 0
-    for talent in ACTIVE_TALENTS_LIST:
-        query = f"{API_URL}/{talent['account']}/rss"
-        feed = fp.parse(query)
-        for tweet in feed.entries:
-            url = tweet.link.split("/")
-            for keyword in list(KEYWORDS_SCHEDULE + KEYWORDS_GUERILLA):
-                tweet_body = tweet.summary.lower()
-                keyword = keyword.lower()
-                if keyword in tweet_body:
-                    has_media = "<img src=" in tweet_body
-                    # skip retweets (just to be sure)
-                    if EXCLUDE_RTS and url[3] != talent["account"]:
-                        continue
-                    # normalize keywords
-                    if keyword in KEYWORDS_SCHEDULE:
-                        keyword = "schedule"
-                        # skip schedule tweets with no picture attached
-                        if not has_media:
-                            continue
-                    elif keyword in KEYWORDS_GUERILLA:
-                        keyword = "guerilla"
-                    else:
-                        keyword = "other"
-                    tweet_id = url[5]
-                    tweet_url = f"https://twitter.com/{talent['account']}/status/{tweet_id}"
-                    now = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
-                    item = {
-                        "_id": tweet_id,
-                        "id": tweet_id,
-                        "url": tweet_url,
-                        "content": clean_html(tweet.summary),
-                        "raw_content": tweet.summary,
-                        "has_media": has_media,
-                        "talent": talent["account"].lower(),
-                        "version": 4,
-                        "source": "twitter-client",
-                        "keyword": keyword,
-                        "published": dp.parse(tweet.published),
-                        "scraped": dp.parse(now)
-                    }
-                    res = app.database["tweets"].update_one(
-                        filter={"_id": tweet_id},
-                        update={'$setOnInsert': item},
-                        upsert=True)
-                    num_added = num_added + res.modified_count
-                    tweet_list.append(item)
-                    break
-    log(f"Added {num_added} tweets to DB (fetched {len(tweet_list)})")
-    return tweet_list
-
-
 @app.get("/talents", summary="List all watched talents")
 def talents() -> list[Talent]:
     return ACTIVE_TALENTS_LIST
@@ -200,7 +147,10 @@ def talents(server: str) -> list[Talent]:
     if server.upper() == "KFP":
         return ACTIVE_TALENTS_HOLO
     elif server.upper() == "NEST":
-        return ACTIVE_TALENTS_NIJI
+        # TEMPORARY
+        return ACTIVE_TALENTS_NIJI + ACTIVE_TALENTS_INDIE
+    elif server.upper() == "INDIE":
+        return ACTIVE_TALENTS_INDIE
     else:
         return []
 
@@ -239,7 +189,10 @@ def tweets_server(
     if server.upper() == "KFP":
         talents = ACTIVE_TALENTS_HOLO
     elif server.upper() == "NEST":
-        talents = ACTIVE_TALENTS_NIJI
+        # TEMPORARY
+        talents = ACTIVE_TALENTS_NIJI + ACTIVE_TALENTS_INDIE
+    elif server.upper() == "INDIE":
+        talents = ACTIVE_TALENTS_INDIE
     else:
         talents = []
 
